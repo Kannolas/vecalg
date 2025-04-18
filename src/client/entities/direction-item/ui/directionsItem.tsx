@@ -39,7 +39,7 @@ export const DirectionsItem = ({ direction }: Props) => {
                     <TokenBox code={direction.from} name={TOKEN_NAMES[direction.from] || direction.from} />
                 </TableCell>
                 <TableCell width={160}>
-                    <TokenBox code={direction.from} name={TOKEN_NAMES[direction.from] || direction.from} />
+                    <TokenBox code={direction.to} name={TOKEN_NAMES[direction.to] || direction.to} />
                 </TableCell>
                 <TableCell width={80}>{direction.margin}</TableCell>
                 <TableCell width={140} className={styles.directions_actions}>
