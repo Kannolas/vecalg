@@ -9,9 +9,10 @@ import { Container } from '../../../shared/ui/container';
 
 interface PageProps {
     children: ReactNode;
+    isProtected?: boolean;
 }
 
-export const LayoutPage = ({ children }: PageProps) => {
+export const LayoutPage = ({ children, isProtected }: PageProps) => {
     const { resolvedTheme } = useTheme();
 
     return (
@@ -25,7 +26,7 @@ export const LayoutPage = ({ children }: PageProps) => {
                     <div className={styles.layout_content}>
                         <div style={{ width: '100%' }}>
                             <div className={styles.layout_content_box}>
-                                <Sidebar />
+                                {!isProtected && <Sidebar />}
                                 {children}
                             </div>
                         </div>

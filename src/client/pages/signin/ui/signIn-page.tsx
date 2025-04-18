@@ -4,7 +4,7 @@ import { SignInForm } from '../../../features/signIn-form';
 
 export function SignInPage() {
     return (
-        <LayoutPage isAuth={false}>
+        <LayoutPage isProtected>
             <AuthBox>
                 <SignInForm />
             </AuthBox>
