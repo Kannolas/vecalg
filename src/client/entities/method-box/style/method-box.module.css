@@ -1,0 +1,14 @@
+.method_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--base-layer-accent);
+  border-radius: var(--border-radius-m);
+  padding: var(--spacing-l);
+  cursor: pointer;
+  width: 100%;
+}
+
+.text_primary {
+  color: var(--text-primary);
+}

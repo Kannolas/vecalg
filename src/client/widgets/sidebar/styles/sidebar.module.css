@@ -1,0 +1,28 @@
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-m);
+}
+
+.sidebar_logo{
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-s);
+    justify-content: space-between;
+}
+
+.sidebar_link{
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-s);
+}
+
+.sidebar_link:hover{
+    background: var(--base-hover);
+}
+
+.sidebar_link__active{
+    background: var(--base-hover);
+}

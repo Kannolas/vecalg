@@ -1,0 +1,75 @@
+.Dropdown__input {
+    padding: 0.5rem;
+}
+
+.Dropdown__trigger {
+    min-width: fit-content;
+    max-width: 200px;
+    overflow-x: auto;
+}
+
+.Dropdown__trigger svg g path{
+    stroke: black;
+}
+
+.Dropdown__input_layer {
+    background-color: var(--base-layer);
+}
+
+.Dropdown__input_background {
+    background-color: var(--base-background);
+}
+
+.Dropdown__select {
+    display: flex;
+    gap: 4px;
+}
+
+.Dropdown__select_box {
+    max-width: 120px;
+    display: flex;
+    padding: 2px 4px;
+    background-color: var(--base-hover);
+    border-radius: 12px;
+}
+
+.Dropdown__select_item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Dropdown__select_value {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.Dropdown__item{
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-s);
+}
+
+.Dropdown__item_box {
+    display: flex;
+    flex-direction: column;
+}
+
+.Dropdown__item_active {
+    background-color: var(--base-layer-accent);
+}
+
+.Dropdown__panel {
+    display: flex;
+    flex-direction: column;
+    max-height: 280px;
+    overflow-y: scroll;
+}
+
+.text_primary {
+    color: var(--text-primary);
+}
+.text_secondary {
+    color: var(--text-secondary);
+}

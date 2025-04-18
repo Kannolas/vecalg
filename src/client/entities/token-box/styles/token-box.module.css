@@ -1,0 +1,18 @@
+.item_token {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.item_box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.text_primary {
+  color: var(--text-primary);
+}
+.text_secondary {
+  color: var(--text-secondary);
+}

@@ -1,0 +1,84 @@
+.signInForm__blockForm {
+    z-index: 50;
+    display: flex;
+    max-width: 340px;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .signInForm__blockForm_title {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    gap: 0.25rem;
+  }
+  
+  .signInForm__blockForm_boxInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  
+  .signInForm__input {
+    width: 100%;
+  }
+  
+  .signInForm__input input {
+    line-height: 32px;
+  }
+  
+  .signInForm__formControl {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .signInForm__password {
+    cursor: pointer;
+  }
+  
+  .signInForm__blockForm_boxButton {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  .signInForm__blockForm_boxButton button {
+    cursor: pointer;
+  }
+  
+  .divider {
+    white-space: nowrap;
+  }
+  
+  .signInForm__blockForm_signIn {
+    display: flex;
+    gap: 4px;
+  }
+  
+  .signInForm__blockForm_agreement {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+    gap: 12px;
+  }
+  
+  .signInForm__agreement_text {
+    color: var(--text-brand);
+    font-size: 1rem;
+    line-height: 1.25rem;
+    text-decoration: underline;
+  }
+  
+  .signInForm__blockForm_link {
+    color: var(--text-brand);
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+  }

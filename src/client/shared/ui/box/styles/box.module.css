@@ -1,0 +1,14 @@
+.wrapper {
+  background-color: var(--base-layer);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-xl);
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding-left: var(--spacing-l);
+    padding-right: var(--spacing-l);
+    padding-bottom: var(--spacing-xl);
+    padding-top: var(--spacing-xl);
+  }
+}

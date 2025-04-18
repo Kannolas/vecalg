@@ -1,0 +1,48 @@
+stages:
+  - build
+  - update
+
+variables:
+  DOCKER_IMAGE: $CI_REGISTRY_IMAGE
+  DOCKER_TAG: latest
+
+docker-build:
+  image: docker:cli  # Используем более легковесный образ
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE =~ /build\(RELEASE\): service version/'
+  tags:
+    - front_prod
+  services:
+    - docker:dind
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - echo "EXCHANGER_PATH=$EXCHANGER_PATH" >> .env
+    - echo "CREDENTIALS_AUTH=1" >> .env
+    - echo "NEXTAUTH_URL=$NEXTAUTH_URL" >> .env
+    - echo "EXTERNAL_API_SERVICE=$EXTERNAL_API_SERVICE" >> .env
+    - echo "NEXTAUTH_SECRET=$NEXTAUTH_SECRET" >> .env
+    - docker build . -t $DOCKER_IMAGE:$DOCKER_TAG
+    - docker push $DOCKER_IMAGE:$DOCKER_TAG
+  cache:
+    key: docker-build
+    paths:
+      - .env
+
+update-service:
+  image: docker:cli  # Используем более легковесный образ
+  stage: update
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE =~ /build\(RELEASE\): service version/'
+  tags:
+    - front_prod
+  services:
+    - docker:dind
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - docker pull $DOCKER_IMAGE:$DOCKER_TAG
+    - docker compose up -d --no-deps --build wallet  # Обновляем только нужный сервис
+  cache:
+    key: update-service
+    paths:
+      - .env

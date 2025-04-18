@@ -1,0 +1,11 @@
+.table__head_row {
+  color: var(--text-secondary);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 8px 8px 12px 8px;
+}

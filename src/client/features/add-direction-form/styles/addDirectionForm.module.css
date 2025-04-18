@@ -1,0 +1,11 @@
+.addDirectionForm{
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.addDirectionForm_limits{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-m);
+}

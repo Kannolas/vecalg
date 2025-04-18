@@ -1,0 +1,11 @@
+.directions{
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.directions_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

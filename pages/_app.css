@@ -1,0 +1,23 @@
+:root {
+  --font-display: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    "Segoe UI", Ubuntu, "Arial", sans-serif;
+
+  --transition-time: 100ms;
+  --transition-func: ease-in-out;
+}
+
+html,
+body {
+  box-sizing: border-box;
+
+  font-family: var(--font-display);
+
+  color: var(--text-primary);
+  background-color: var(--base-background);
+
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  height: 100%;
+}

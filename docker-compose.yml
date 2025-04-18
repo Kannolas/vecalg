@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  wallet:
+    container_name: wallet-admin-front
+    build:
+      context: .
+    ports:
+      - "3004:3000"
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - EXCHANGER_PATH=${EXCHANGER_PATH}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+      - CREDENTIALS_AUTH=1
+      - EXTERNAL_API_SERVICE=${EXTERNAL_API_SERVICE}
+      - NEXTAUTH_SECRET={NEXTAUTH_SECRET}
+    networks:
+      - zaton_default
+
+networks:
+  zaton_default:
+    external: true  # Используем существующую сеть

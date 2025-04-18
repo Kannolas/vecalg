@@ -1,0 +1,15 @@
+.converter_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.converter_item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text_primary {
+    color: var(--text-primary);
+}

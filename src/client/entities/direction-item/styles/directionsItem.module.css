@@ -1,0 +1,5 @@
+.directions_actions{
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-m);
+}

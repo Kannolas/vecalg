@@ -1,0 +1,101 @@
+@keyframes enter {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes leave {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.Toast_wrapper {
+    pointer-events: auto;
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: 448px;
+    border-radius: 16px;
+    border: 1px solid var(--base-layer-border);
+    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    background-color: var(--base-background);
+}
+
+.Toast__animate_leave {
+    animation: leave 150ms ease-in forwards;
+}
+.Toast__animate_enter {
+    animation: enter 200ms ease-out;
+}
+
+.Toast__content {
+    display: flex;
+    flex: 1 1 0%;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 32px 16px 16px;
+}
+
+.Toast__content_block {
+    display: flex;
+    min-height: 32px;
+    min-width: 32px;
+    align-items: center;
+    justify-content: center;
+}
+
+.Toast__contentBlock_warning path {
+    stroke: var(--warn-500);
+}
+
+.Toast__contentBlock_error path {
+    stroke: var(--danger-500);
+}
+
+.Toast__contentBlock_success path {
+    stroke: var(--success-500);
+}
+
+.Toast__contentBlock_info path {
+    stroke: var(--blue-500);
+}
+
+.Toast__contentBlock_loading {
+    animation: spin 1s linear infinite;
+    color: var(--primary-500);
+}
+
+.Toast__contentBlock_message {
+    color: var(--text-primary);
+}
+
+.Toast__button_onClose {
+    position: absolute;
+    cursor: pointer;
+    opacity: 0.5;
+    right: 8px;
+    top: 8px;
+    color: var(--text-primary);
+}
+.Toast__button_onClose:hover {
+    opacity: 0.8;
+}
