@@ -2,13 +2,12 @@ import { Button, FormControl, FormControlInput, Typography } from '@plex-inc/bri
 import { useForm } from 'react-hook-form';
 import isEmail from 'validator/lib/isEmail';
 import { signIn } from 'next-auth/react';
-import Cookies from 'js-cookie';
 
 import { InputPassword } from '../../../shared/ui/input-password';
 import { FormInputError } from '../../../shared/ui/form-input-error';
 import { nullable } from '../../../shared/utils/nullable';
 import { routes, useRouter } from '../../../shared/hooks/router';
-import styles from '../style/signIn-form.module.css';
+import styles from '../style/signUp-form.module.css';
 import { sendToast } from '../../../shared/ui/toast';
 
 interface Inputs {
@@ -17,10 +16,10 @@ interface Inputs {
 }
 
 interface Props {
-    onSignup: () => void;
+    onSignIn: () => void;
 }
 
-export const SignInForm = ({ onSignup }: Props) => {
+export const SignUpForm = ({ onSignIn }: Props) => {
     const {
         register,
         handleSubmit,
@@ -40,8 +39,6 @@ export const SignInForm = ({ onSignup }: Props) => {
 
             if (res?.status === 200) {
                 sendToast.success('Successful authorization');
-                Cookies.set('email', data.email);
-                Cookies.set('role', '');
                 return router.tokens();
             }
             return sendToast.error('Authorization error');
@@ -57,7 +54,7 @@ export const SignInForm = ({ onSignup }: Props) => {
                 <Typography.Text as="h1" strong size="text_header_1">
                     Авторизация
                 </Typography.Text>
-                <Typography.Text onClick={onSignup} className={styles.Text__brand}>
+                <Typography.Text onClick={onSignIn} className={styles.Text__brand}>
                     Нет аккаунта?
                 </Typography.Text>
             </div>
@@ -98,6 +95,18 @@ export const SignInForm = ({ onSignup }: Props) => {
                             required: {
                                 value: true,
                                 message: 'Обязательное поле',
+                            },
+                            pattern: {
+                                value: /^(?=.*[0-9])(?=.*[./\-_$&!?,()@*%#])(?=.{8,})/,
+                                message: 'Минимум 1 число, 1 заглавная буква и 1 символ (./-_$&!?,()@*%#)',
+                            },
+                            minLength: {
+                                value: 8,
+                                message: 'минимум 8 символов',
+                            },
+                            maxLength: {
+                                value: 40,
+                                message: 'Не более 40 символов',
                             },
                         })}
                     />

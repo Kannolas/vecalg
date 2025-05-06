@@ -4,10 +4,7 @@ import { useRouter } from 'next/router';
 
 import { Box } from '@/shared/ui/box';
 import { User } from '@/widgets/user';
-import Logo_s from '@/shared/assets/expocket-s.svg';
-import UserIcon from '@/shared/assets/user.svg';
-import TokensIcon from '@/shared/assets/tokens.svg';
-import DirectionsIcon from '@/shared/assets/directions.svg';
+import Logo_s from '@/shared/assets/Logo_l.svg';
 import { SwitchTheme } from '@/features/switch-theme';
 import { routes } from '@/shared/hooks/router';
 
@@ -15,24 +12,21 @@ import styles from '../styles/sidebar.module.css';
 
 export const sidebar = [
     {
-        label: 'Токены',
-        route: routes.tokens(),
-        icon: <TokensIcon />,
+        label: 'Понятие вектора',
+        route: routes.article(1),
     },
     {
-        label: 'Направления',
-        route: routes.directions(),
-        icon: <DirectionsIcon />,
+        label: 'Векторы в пространстве',
+        route: routes.article(1),
     },
     {
-        label: 'Пользователи',
-        route: routes.users(),
-        icon: <UserIcon />,
+        label: 'Компланарность векторов',
+        route: routes.article(1),
     },
 ];
-
 export const Sidebar = () => {
     const { route } = useRouter();
+
     return (
         <Box className={styles.sidebar}>
             <div className={styles.sidebar_logo}>
@@ -48,7 +42,6 @@ export const Sidebar = () => {
                     })}
                     key={item.label}
                 >
-                    {item.icon}
                     {item.label}
                 </Link>
             ))}

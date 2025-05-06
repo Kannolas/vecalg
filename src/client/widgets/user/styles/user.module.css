@@ -1,6 +1,7 @@
 .user{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: var(--spacing-m);
     padding: var(--spacing-s) 0;
 }

@@ -1,10 +1,8 @@
 import { GetServerSidePropsContext } from 'next';
 import { Session } from 'next-auth';
-import { getSession } from 'next-auth/react';
 import { createServerSideHelpers, DecoratedProcedureSSGRecord } from '@trpc/react-query/server';
 
 import { trpcRouter, TrpcRouter } from '../../../trpc/router';
-import { routes } from '../hooks/router';
 
 import { transformer } from './transformer';
 
@@ -25,25 +23,18 @@ export interface ExternalPageProps<P = { [key: string]: string }> extends SSRPro
 export function declareSsrProps<T = ExternalPageProps>(
     cb?: ({ user, req, params, query }: SSRProps) => T,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    options?: { private: boolean },
 ) {
     return async ({ req, params = {}, query }: GetServerSidePropsContext) => {
         // FIXME: getServerSession. Problem with serialazing createdAt, updatedAt
-        const session = await getSession({ req });
-        if (options?.private && !session) {
-            return {
-                redirect: {
-                    destination: routes.signin(),
-                    permanent: false,
-                },
-            };
-        }
 
         const ssrHelpers = createServerSideHelpers({
             router: trpcRouter,
             ctx: {
-                session,
                 headers: req.headers,
+                session: {
+                    access_token: 'sfasf',
+                    expires: 'asdasd',
+                },
             },
             transformer,
         });
@@ -53,9 +44,7 @@ export function declareSsrProps<T = ExternalPageProps>(
         const resProps = cb
             ? await cb({
                   req,
-                  // look at session check in previous condition
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  user: session?.user,
+                  user: { name: '' },
                   params: params as Record<string, string>,
                   query,
                   ssrTime,
@@ -73,7 +62,7 @@ export function declareSsrProps<T = ExternalPageProps>(
                 ...resProps,
                 params: params as Record<string, string>,
                 cookies: req.cookies,
-                user: session ? session.user : null,
+                user: null,
                 ssrTime,
                 trpcState: ssrHelpers.dehydrate(),
             },

@@ -14,7 +14,6 @@ interface PageProps {
 
 export const LayoutPage = ({ children, isProtected }: PageProps) => {
     const { resolvedTheme } = useTheme();
-
     return (
         <>
             <Head>

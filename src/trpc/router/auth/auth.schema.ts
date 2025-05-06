@@ -6,10 +6,7 @@ export const loginSchema = z.object({
 });
 
 export const loginResponseSchema = z.object({
-    data: z.object({
-        success: z.boolean(),
-        token: z.string(),
-    }),
+    access_token: z.string(),
 });
 
 export const successResponseSchema = z.object({

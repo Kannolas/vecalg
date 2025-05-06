@@ -1,0 +1,41 @@
+.article{
+    display: flex;
+    padding-bottom: 0px;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.article_title{
+    font-weight: 600;
+}
+
+.article_box{
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-m);
+}
+
+.article_svg{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.article_svg__title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.article_text{
+    line-height: 16px;
+    color: var(--text-brand);
+}
+
+.Text_bold{
+    color: var(--text-brand);
+    font-weight: bold;
+}

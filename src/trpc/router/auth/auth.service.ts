@@ -10,7 +10,7 @@ const http = createHttpClient({ baseURL: process.env.EXCHANGER_PATH, context: 'R
 export class AuthService {
     static async login({ input }: TrpcRequest<Login>) {
         try {
-            const { data } = await http.post<SignInResponse>('api/user/login', input);
+            const { data } = await http.post<SignInResponse>('/users/login', input);
 
             return AuthModel.fromDTO(data);
         } catch (err) {
