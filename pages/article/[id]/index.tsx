@@ -1,4 +1,4 @@
-import { ArticlePage } from '@/pages/article';
+import { ArticlePage } from '@/pages';
 
 import { declareSsrProps } from '../../../src/client/shared/utils/declare-ssr-props';
 
