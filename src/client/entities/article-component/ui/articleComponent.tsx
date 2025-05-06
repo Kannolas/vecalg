@@ -66,12 +66,18 @@ export const ArticleComponent = ({ data }: { data: ArticleData }) => {
                 {data.title}
             </Typography.Text>
             {data.blocks?.map((block, idx) => {
-                const scenes = block.svgData?.length > 0 && block.svgData?.filter((item) => item.startZ !== undefined);
-                const vectors = block.svgData?.length > 0 && block.svgData?.filter((item) => item.startZ === undefined);
+                const scenes =
+                    block.svgData?.length &&
+                    block.svgData?.length > 0 &&
+                    block.svgData?.filter((item) => item.startZ !== undefined);
+                const vectors =
+                    block.svgData?.length &&
+                    block.svgData?.length > 0 &&
+                    block.svgData?.filter((item) => item.startZ === undefined);
 
                 return (
                     <Box key={idx} title={block?.title || ''} className={styles.article_box}>
-                        <Typography.Text size="text_m">{renderContent(block.content)}</Typography.Text>
+                        <Typography.Text size="text_m">{renderContent(block?.content || '')}</Typography.Text>
                         {vectors && vectors.length > 0 && (
                             <div className={styles.article_svg}>
                                 <AnimatedVector
@@ -88,11 +94,11 @@ export const ArticleComponent = ({ data }: { data: ArticleData }) => {
                             <VectorScene
                                 vectors={[
                                     {
-                                        start: [scenes[0].startX, scenes[0].startY, scenes[0].startZ],
+                                        start: [scenes[0]?.startX || 0, scenes[0].startY || 0, scenes[0].startZ || 0],
                                         end: [
-                                            scenes[0].animationEndX,
-                                            scenes[0].animationEndY,
-                                            scenes[0].animationEndZ,
+                                            scenes[0].animationEndX || 0,
+                                            scenes[0].animationEndY || 0,
+                                            scenes[0].animationEndZ || 0,
                                         ],
                                     },
                                 ]}
