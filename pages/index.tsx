@@ -1,7 +1,9 @@
+import { Main } from '@/pages';
+
 import { declareSsrProps } from '../src/client/shared/utils/declare-ssr-props';
 
 export const getServerSideProps = declareSsrProps(async ({ ssrTime }) => {
     return { ssrTime };
 });
 
-export default <div></div>;
+export default Main;
