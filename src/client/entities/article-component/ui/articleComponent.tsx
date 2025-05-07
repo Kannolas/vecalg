@@ -58,8 +58,6 @@ const renderContent = (content: string) => {
 };
 
 export const ArticleComponent = ({ data }: { data: ArticleData }) => {
-    console.log(data);
-
     return (
         <div className={styles.article}>
             <Typography.Text size="text_display_2" className={styles.article_title}>
@@ -74,7 +72,6 @@ export const ArticleComponent = ({ data }: { data: ArticleData }) => {
                     block.svgData?.length &&
                     block.svgData?.length > 0 &&
                     block.svgData?.filter((item) => item.startZ === undefined);
-
                 return (
                     <Box key={idx} title={block?.title || ''} className={styles.article_box}>
                         <Typography.Text size="text_m">{renderContent(block?.content || '')}</Typography.Text>
@@ -92,16 +89,11 @@ export const ArticleComponent = ({ data }: { data: ArticleData }) => {
                         )}
                         {scenes && scenes.length > 0 && (
                             <VectorScene
-                                vectors={[
-                                    {
-                                        start: [scenes[0]?.startX || 0, scenes[0].startY || 0, scenes[0].startZ || 0],
-                                        end: [
-                                            scenes[0].animationEndX || 0,
-                                            scenes[0].animationEndY || 0,
-                                            scenes[0].animationEndZ || 0,
-                                        ],
-                                    },
-                                ]}
+                                vectors={scenes.map((scene) => ({
+                                    start: [scene.startX || 0, scene.startY || 0, scene.startZ || 0],
+                                    end: [scene.animationEndX || 0, scene.animationEndY || 0, scene.animationEndZ || 0],
+                                    color: scene.color || 'currentColor',
+                                }))}
                             />
                         )}
                     </Box>

@@ -6,10 +6,9 @@ import { createBaseSchema } from '../../utils/base-schema';
 
 import { ArticlesModule } from './articles.module';
 import { articlesSchema } from './articles.schema';
-import { z } from 'zod';
 
 export const articles = router({
-    getArticles: procedure.output(createBaseSchema(z.any())).query(async () => {
+    getArticles: procedure.output(createBaseSchema(articlesSchema)).query(async () => {
         const chains = await ArticlesModule.getArticles();
         if (chains._isError) {
             throw new TRPCError(getError(chains.error));

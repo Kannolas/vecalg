@@ -10,23 +10,18 @@ import { routes } from '@/shared/hooks/router';
 
 import styles from '../styles/sidebar.module.css';
 
-export const sidebar = [
-    {
-        label: 'Понятие вектора',
-        route: routes.article(1),
-    },
-    {
-        label: 'Векторы в пространстве',
-        route: routes.article(1),
-    },
-    {
-        label: 'Компланарность векторов',
-        route: routes.article(1),
-    },
-];
-export const Sidebar = () => {
-    const { route } = useRouter();
+interface Article {
+    title: string;
+    id: number;
+}
 
+interface SidebarProps {
+    articles: Article[];
+}
+
+export const Sidebar = ({ articles }: SidebarProps) => {
+    const { route } = useRouter();
+    const sidebar = articles.map((item) => ({ label: item.title, route: routes.article(item.id) }));
     return (
         <Box className={styles.sidebar}>
             <div className={styles.sidebar_logo}>

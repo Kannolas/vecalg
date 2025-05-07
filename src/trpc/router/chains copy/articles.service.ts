@@ -9,7 +9,7 @@ const http = createHttpClient({ baseURL: process.env.EXCHANGER_PATH, context: 'C
 export class ArticlesService {
     static async getArticles() {
         try {
-            const { data } = await http.get<any>('/articles');
+            const { data } = await http.get<Articles>('/articles');
             return ChainsModel.fromDTO(data);
         } catch (err) {
             return ChainsModel.Error(getError(err));

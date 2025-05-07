@@ -55,7 +55,7 @@ export const AnimatedVector: React.FC<AnimatedVectorFramerProps> = ({
         () => Array.from({ length: Math.floor(width / gridSpacing) + 1 }, (_, i) => i * gridSpacing),
         [width, gridSpacing],
     );
-
+    const sortedVectors = [...vectors].slice().sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
     return (
         <div
             style={{ position: 'relative', display: 'inline-block' }}
@@ -109,145 +109,143 @@ export const AnimatedVector: React.FC<AnimatedVectorFramerProps> = ({
                 ))}
 
                 {/* Векторы */}
-                {vectors
-                    .sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0))
-                    .map((vector, index) => {
-                        const {
-                            startX,
-                            startY,
-                            animationEndX,
-                            animationEndY,
-                            color,
-                            startLabel,
-                            endLabel,
-                            vectorLabel,
-                            arrowSize = 10,
-                        } = vector;
+                {sortedVectors.map((vector, index) => {
+                    const {
+                        startX,
+                        startY,
+                        animationEndX,
+                        animationEndY,
+                        color,
+                        startLabel,
+                        endLabel,
+                        vectorLabel,
+                        arrowSize = 10,
+                    } = vector;
 
-                        const calculateArrowPoints = (x1: number, y1: number, x2: number, y2: number, size: number) => {
-                            const angle = Math.atan2(y2 - y1, x2 - x1);
-                            const arrowPoint1X = x2 - size * Math.cos(angle - Math.PI / 6);
-                            const arrowPoint1Y = y2 - size * Math.sin(angle - Math.PI / 6);
-                            const arrowPoint2X = x2 - size * Math.cos(angle + Math.PI / 6);
-                            const arrowPoint2Y = y2 - size * Math.sin(angle + Math.PI / 6);
-                            return `${x2},${y2} ${arrowPoint1X},${arrowPoint1Y} ${arrowPoint2X},${arrowPoint2Y}`;
-                        };
+                    const calculateArrowPoints = (x1: number, y1: number, x2: number, y2: number, size: number) => {
+                        const angle = Math.atan2(y2 - y1, x2 - x1);
+                        const arrowPoint1X = x2 - size * Math.cos(angle - Math.PI / 6);
+                        const arrowPoint1Y = y2 - size * Math.sin(angle - Math.PI / 6);
+                        const arrowPoint2X = x2 - size * Math.cos(angle + Math.PI / 6);
+                        const arrowPoint2Y = y2 - size * Math.sin(angle + Math.PI / 6);
+                        return `${x2},${y2} ${arrowPoint1X},${arrowPoint1Y} ${arrowPoint2X},${arrowPoint2Y}`;
+                    };
 
-                        const transition = {
-                            duration,
-                            ease: 'easeInOut',
-                            delay: index * delayPerVector,
-                        };
+                    const transition = {
+                        duration,
+                        ease: 'easeInOut',
+                        delay: index * delayPerVector,
+                    };
 
-                        const variants = {
-                            initial: {
-                                x2: startX || 0,
-                                y2: height - (startY || 0),
-                                arrowPoints: calculateArrowPoints(
-                                    startX || 0,
-                                    height - (startY || 0),
-                                    startX || 0,
-                                    height - (startY || 0),
-                                    arrowSize || 10,
-                                ),
-                                opacity: 0,
-                            },
-                            animate: {
-                                x2: animationEndX || 0,
-                                y2: height - (animationEndY || 0),
-                                arrowPoints: calculateArrowPoints(
-                                    startX || 0,
-                                    height - (startY || 0),
-                                    animationEndX || 0,
-                                    height - (animationEndY || 0),
-                                    arrowSize || 0,
-                                ),
-                                opacity: 1,
-                                transition,
-                            },
-                        };
+                    const variants = {
+                        initial: {
+                            x2: startX || 0,
+                            y2: height - (startY || 0),
+                            arrowPoints: calculateArrowPoints(
+                                startX || 0,
+                                height - (startY || 0),
+                                startX || 0,
+                                height - (startY || 0),
+                                arrowSize || 10,
+                            ),
+                            opacity: 0,
+                        },
+                        animate: {
+                            x2: animationEndX || 0,
+                            y2: height - (animationEndY || 0),
+                            arrowPoints: calculateArrowPoints(
+                                startX || 0,
+                                height - (startY || 0),
+                                animationEndX || 0,
+                                height - (animationEndY || 0),
+                                arrowSize || 0,
+                            ),
+                            opacity: 1,
+                            transition,
+                        },
+                    };
 
-                        const midX = ((startX || 0) + (animationEndX || 0)) / 2;
-                        const midY = height - ((startY || 0) + (animationEndY || 0)) / 2;
+                    const midX = ((startX || 0) + (animationEndX || 0)) / 2;
+                    const midY = height - ((startY || 0) + (animationEndY || 0)) / 2;
 
-                        return (
-                            <React.Fragment key={`vector-${index}`}>
-                                <motion.circle
-                                    cx={startX || 0}
-                                    cy={height - (startY || 0)}
-                                    r={3}
-                                    fill={color || 'currentColor'}
-                                    variants={variants}
-                                    initial="initial"
-                                    animate="animate"
-                                />
+                    return (
+                        <React.Fragment key={`vector-${index}`}>
+                            <motion.circle
+                                cx={startX || 0}
+                                cy={height - (startY || 0)}
+                                r={3}
+                                fill={color || 'currentColor'}
+                                variants={variants}
+                                initial="initial"
+                                animate="animate"
+                            />
 
-                                <motion.line
-                                    x1={startX || 0}
-                                    y1={height - (startY || 0)}
-                                    stroke={color || 'currentColor'}
-                                    strokeWidth="2"
-                                    variants={variants}
-                                    initial="initial"
-                                    animate="animate"
-                                />
-                                <motion.polygon
-                                    points={variants.animate.arrowPoints}
-                                    fill={color || 'currentColor'}
-                                    stroke={color || 'currentColor'}
-                                    variants={variants}
-                                    initial="initial"
-                                    animate="animate"
-                                />
+                            <motion.line
+                                x1={startX || 0}
+                                y1={height - (startY || 0)}
+                                stroke={color || 'currentColor'}
+                                strokeWidth="2"
+                                variants={variants}
+                                initial="initial"
+                                animate="animate"
+                            />
+                            <motion.polygon
+                                points={variants.animate.arrowPoints}
+                                fill={color || 'currentColor'}
+                                stroke={color || 'currentColor'}
+                                variants={variants}
+                                initial="initial"
+                                animate="animate"
+                            />
 
-                                {vectorLabel && (
-                                    <foreignObject
-                                        x={midX - 50}
-                                        y={midY - 20}
-                                        width="100"
-                                        height="20"
-                                        style={{ overflow: 'visible' }}
+                            {vectorLabel && (
+                                <foreignObject
+                                    x={midX - 50}
+                                    y={midY - 20}
+                                    width="100"
+                                    height="20"
+                                    style={{ overflow: 'visible' }}
+                                >
+                                    <div
+                                        style={{
+                                            fontSize: labelSize,
+                                            color: labelColor,
+                                            textAlign: 'center',
+                                        }}
                                     >
-                                        <div
-                                            style={{
-                                                fontSize: labelSize,
-                                                color: labelColor,
-                                                textAlign: 'center',
-                                            }}
-                                        >
-                                            {vectorLabel}
-                                        </div>
-                                    </foreignObject>
-                                )}
+                                        {vectorLabel}
+                                    </div>
+                                </foreignObject>
+                            )}
 
-                                {showLabels && (
-                                    <>
-                                        <text
-                                            x={(startX || 0) - 10}
-                                            y={height - (startY || 0) - 5}
-                                            fontSize={labelSize}
-                                            fill={labelColor}
-                                            textAnchor="end"
-                                        >
-                                            {startLabel || ''}
-                                        </text>
-                                        <motion.text
-                                            x={(animationEndX || 0) - 10}
-                                            y={height - (animationEndY || 0) - 5}
-                                            fontSize={labelSize}
-                                            fill={labelColor}
-                                            textAnchor="end"
-                                            variants={variants}
-                                            initial="initial"
-                                            animate="animate"
-                                        >
-                                            {endLabel || ''}
-                                        </motion.text>
-                                    </>
-                                )}
-                            </React.Fragment>
-                        );
-                    })}
+                            {showLabels && (
+                                <>
+                                    <text
+                                        x={(startX || 0) - 10}
+                                        y={height - (startY || 0) - 5}
+                                        fontSize={labelSize}
+                                        fill={labelColor}
+                                        textAnchor="end"
+                                    >
+                                        {startLabel || ''}
+                                    </text>
+                                    <motion.text
+                                        x={(animationEndX || 0) - 10}
+                                        y={height - (animationEndY || 0) - 5}
+                                        fontSize={labelSize}
+                                        fill={labelColor}
+                                        textAnchor="end"
+                                        variants={variants}
+                                        initial="initial"
+                                        animate="animate"
+                                    >
+                                        {endLabel || ''}
+                                    </motion.text>
+                                </>
+                            )}
+                        </React.Fragment>
+                    );
+                })}
             </svg>
         </div>
     );

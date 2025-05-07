@@ -7,12 +7,18 @@ import { Sidebar } from '@/widgets/sidebar/ui/sidebar';
 import styles from '../styles/layout-page.module.css';
 import { Container } from '../../../shared/ui/container';
 
+interface Article {
+    title: string;
+    id: number;
+}
+
 interface PageProps {
     children: ReactNode;
     isProtected?: boolean;
+    articles: Article[];
 }
 
-export const LayoutPage = ({ children, isProtected }: PageProps) => {
+export const LayoutPage = ({ children, isProtected, articles }: PageProps) => {
     const { resolvedTheme } = useTheme();
     return (
         <>
@@ -25,7 +31,7 @@ export const LayoutPage = ({ children, isProtected }: PageProps) => {
                     <div className={styles.layout_content}>
                         <div style={{ width: '100%' }}>
                             <div className={styles.layout_content_box}>
-                                {!isProtected && <Sidebar />}
+                                {!isProtected && <Sidebar articles={articles} />}
                                 {children}
                             </div>
                         </div>
